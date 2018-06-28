@@ -18,11 +18,24 @@ class App extends React.Component{
     })
   }
 
+  deleteTodo = (text) => {
+    var arr = this.state.todo;
+    var toDelete = arr.indexOf(text);
+    arr.splice(toDelete, 1);
+    this.setState({
+      todo: arr
+    })
+
+  }
+
   // Funcion que muestra el arreglo de todos. Mapeando el arreglo y retornado un componente con el texto
   renderTodos = () => {
     return this.state.todo.map( (text, index) => {
       return (
-        <Text key={index}> {text} </Text>
+        <Text 
+          key={index}
+          onPress={() => this.deleteTodo(text)}
+        > {text} </Text>
       )
     });
 
