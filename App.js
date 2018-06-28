@@ -1,6 +1,6 @@
 // import stuff
 import React from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 
 
 // Create some stuff
@@ -32,10 +32,12 @@ class App extends React.Component{
   renderTodos = () => {
     return this.state.todo.map( (text, index) => {
       return (
-        <Text 
-          key={index}
-          onPress={() => this.deleteTodo(text)}
-        > {text} </Text>
+        <TouchableOpacity key={index}>
+          <Text 
+            style={{color: 'white', fontSize: 18}}
+            onPress={() => this.deleteTodo(text)}
+          > {text} </Text>
+        </TouchableOpacity>
       )
     });
 
@@ -43,20 +45,24 @@ class App extends React.Component{
 
   render(){
     return(
-      <View style={ styles.viewStyle }>
-        <Text> Hello World! this app is great </Text>
-        <TextInput 
-          style={ styles.inputStyles }
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
-        <Button 
-          title="Add Todo"
-          color="#841584"
-          onPress={this.addTodo}
-          style={styles.addButton}
-        />
-        {this.renderTodos()}
+      <View style={styles.contentView}>
+        <View style={ styles.viewStyle }>
+          <Text style={styles.mainTitle}> Todo App Reminder </Text>
+          <TextInput 
+            style={ styles.inputStyles }
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
+          />
+          <Button 
+            title="Add Todo"
+            color="#841584"
+            onPress={this.addTodo}
+            style={styles.addButton}
+          />
+          <View style={{marginTop: 50, alignItems: 'center'}}>
+            {this.renderTodos()}
+          </View>
+        </View>
       </View>
 
       
@@ -66,17 +72,31 @@ class App extends React.Component{
 
 
 const styles = {
+  contentView: {
+    flex: 1,
+    marginTop: 30,
+    padding: 10,
+    backgroundColor: "#03A9F4"
+
+  },
   viewStyle: {
-    flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center',
     
   },
+  mainTitle: {
+    fontSize: 30,
+    color: "white",
+    fontWeight: "bold"
+  },
   inputStyles: {
     height: 40,
-    borderColor: "green",
+    borderColor: "white",
+    color: "white",
     borderWidth: 1,
-    margin: 10
+    margin: 10,
+    width: 300,
+    padding: 5
   },
   addButton: {
     marginBottom: 20,
